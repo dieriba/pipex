@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 21:58:19 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/30 13:35:36 by dtoure           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:16:07 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	start(t_cmd *cmd, int pipes[2])
 void	end(t_cmd *cmd, int pipes[2], int prev_pipes)
 {
 	char	*file;
-	int		fd;
 	int		flags;
 
 	if (cmd -> info -> here_doc)
@@ -70,19 +69,19 @@ void	end(t_cmd *cmd, int pipes[2], int prev_pipes)
 	else
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
 	file = cmd -> info -> files[1];
-	fd = open(file, flags, 0666);
+	cmd -> info -> end_fd = open(file, flags, 0666);
 	if (access(file, W_OK) < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
-	if (fd < 0)
+	if (cmd -> info -> end_fd < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
 	if (dup2(prev_pipes, STDIN_FILENO) < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
 	if (close(pipes[0]) < 0 || close(pipes[1]) < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
 	cmd -> inited = 0;
-	if (dup2(fd, STDOUT_FILENO) < 0)
+	if (dup2(cmd -> info -> end_fd, STDOUT_FILENO) < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
-	if (close(fd) < 0 || close(prev_pipes) < 0)
+	if (close(cmd -> info -> end_fd) < 0 || close(prev_pipes) < 0)
 		print_err_and_exit("bash ", cmd, cmd -> info, 1);
 	cmd -> info -> prev_pipes = -1;
 	run_cmd(cmd);

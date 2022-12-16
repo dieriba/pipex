@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:37:31 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/27 17:40:54 by dtoure           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:00:37 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*create_file(t_data *info)
 	char		*line;
 	static int	last = 1;
 
-	info -> doc_fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC);
+	info -> doc_fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (info -> doc_fd < 0)
 		print_err_and_exit("Error", NULL, info, 1);
 	while (1)

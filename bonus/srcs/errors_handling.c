@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:31:37 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/30 13:39:20 by dtoure           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:42:45 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	free_all(t_data *to_free, int code)
 {
 	free_files(to_free -> files);
 	free_cmd(to_free -> cmd_data);
+	if (to_free -> end_fd == -1)
+		code = 1;
 	exit(code);
 }
 
@@ -81,7 +83,8 @@ void	print_err(char *str, t_cmd *cmd, int type)
 
 void	print_err_and_exit(char *str, t_cmd *cmd, t_data *info, int type)
 {
-	print_err(str, cmd, type);
+	if (cmd)
+		print_err(str, cmd, type);
 	if (cmd && cmd -> inited)
 	{
 		if (close(cmd -> info -> pipes[0]) < 0)
@@ -92,8 +95,10 @@ void	print_err_and_exit(char *str, t_cmd *cmd, t_data *info, int type)
 	if (info -> prev_pipes != -1)
 		if (close(info -> prev_pipes) < 0)
 			perror("Error");
-	if (info -> doc_fd)
+	if (info -> doc_fd > 0)
 		if (close(info -> doc_fd) < 0)
 			perror("Error");
+	if (info -> doc_fd)
+		free(info -> limiter);
 	free_all(info, info -> status);
 }

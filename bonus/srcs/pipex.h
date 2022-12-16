@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:11:12 by dtoure            #+#    #+#             */
-/*   Updated: 2022/12/07 16:25:42 by dtoure           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:14:36 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct t_data
 	int		status;
 	char	*limiter;
 	int		doc_fd;
+	int		end_fd;
 }	t_data;
 
 typedef struct t_cmd

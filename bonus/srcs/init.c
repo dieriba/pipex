@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:34:34 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/27 17:17:24 by dtoure           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:16:37 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	init_cmd(t_data *info, char **argv, int argc, char **envp)
 	info -> prev_pipes = -1;
 	info -> limiter = argv[2];
 	info -> status = 0;
+	info -> end_fd = 0;
 	i = -1;
 	cmds = ft_calloc(sizeof(t_cmd *), info -> num_cmds + 1);
 	if (!cmds)
