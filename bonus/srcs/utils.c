@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:37:31 by dtoure            #+#    #+#             */
-/*   Updated: 2022/12/16 20:00:37 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 21:51:31 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*create_file(t_data *info)
+void	create_here_doc(t_data *info)
 {
 	char		*line;
 	static int	last = 1;
 
-	info -> doc_fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (info -> doc_fd < 0)
-		print_err_and_exit("Error", NULL, info, 1);
 	while (1)
 	{
 		line = get_next_line(0, last);
@@ -28,30 +25,42 @@ char	*create_file(t_data *info)
 		last = ft_strcmp(line, info -> limiter);
 		if (!last)
 			break ;
-		if (write(info -> doc_fd, line, ft_strlen(line)) < 0)
+		if (write(info -> doc_pipes[1], line, ft_strlen(line)) < 0)
 			print_err_and_exit("Error", NULL, info, 1);
 		free(line);
 	}
 	get_next_line(0, last);
 	free(line);
 	free(info -> limiter);
-	if (close(info -> doc_fd) < 0)
-		print_err_and_exit("Error", NULL, info, 1);
-	info -> doc_fd = 0;
-	return ("here_doc");
+	exit(0);
 }
 
-char	*start_here_doc(t_data *info)
+void	start_here_doc(t_data *info)
 {
-	char	*file;
+	int		status;
+	pid_t	pid;
 
-	info -> limiter = ft_strjoin(info -> limiter, "\n");
-	if (!info -> limiter)
-		print_err_and_exit("Failled to allocate memory", NULL, info, 1);
-	file = create_file(info);
-	if (!file)
-		print_err_and_exit("Failled to allocate memory", NULL, info, 1);
-	return (file);
+	status = 0;
+	if (pipe(info -> doc_pipes) < 0)
+		print_err_and_exit("Error", NULL, info, 0);
+	pid = fork();
+	if (pid == -1)
+		print_err_and_exit("Error", NULL, info, 0);
+	if (pid == 0)
+	{
+		info -> limiter = ft_strjoin(info -> limiter, "\n");
+		if (!info -> limiter)
+			print_err_and_exit("Failled to allocate memory", NULL, info, 1);
+		create_here_doc(info);
+	}
+	close_fd(info, &info -> doc_pipes[1], "Error");
+	if (waitpid(pid, &status, 0) < 0)
+		print_err_and_exit("Error", NULL, info, 0);
+	if (WIFSIGNALED(status))
+	{
+		info -> status = status + 128;
+		free_all(info, info -> status);
+	}
 }
 
 void	wait_all_child(t_cmd **cmds)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:28:59 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/26 17:34:52 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 21:12:41 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check(char *env, char *to_check, size_t size)
 	return (0);
 }
 
-char	*find_path(char *envp[])
+char	*find_path(char **envp)
 {
 	size_t	i;
 
@@ -41,8 +41,12 @@ char	*find_path(char *envp[])
 	return (0);
 }
 
-void	close_fd(t_data *data, int fd, char *str)
+void	close_fd(t_data *data, int *fd, char *str)
 {
-	if (close(fd) < 0)
+	if ((*fd) > 0 && close(*fd) < 0)
+	{
+		(*fd) = -1;
 		print_err_and_exit(str, NULL, data, 1);
+	}
+	(*fd) = -1;
 }

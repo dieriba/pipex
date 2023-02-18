@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:31:37 by dtoure            #+#    #+#             */
-/*   Updated: 2022/12/16 20:42:45 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 21:39:31 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,25 @@ void	print_err(char *str, t_cmd *cmd, int type)
 		ft_putstr_fd(str, 2);
 		ft_putchar_fd('\n', 2);
 	}
+	errno = 0;
 }
 
 void	print_err_and_exit(char *str, t_cmd *cmd, t_data *info, int type)
 {
 	if (cmd)
 		print_err(str, cmd, type);
-	if (cmd && cmd -> inited)
-	{
-		if (close(cmd -> info -> pipes[0]) < 0)
-		 perror("Error");
-		if (close(cmd -> info -> pipes[1]) < 0)
-		 perror("Error");
-	}
 	if (info -> prev_pipes != -1)
 		if (close(info -> prev_pipes) < 0)
 			perror("Error");
-	if (info -> doc_fd > 0)
-		if (close(info -> doc_fd) < 0)
-			perror("Error");
-	if (info -> doc_fd)
-		free(info -> limiter);
+	if (info -> here_doc && info -> doc_pipes[0] > 0)
+		close(info -> doc_pipes[0]);
+	if (info -> here_doc && info -> doc_pipes[1] > 0)
+		close(info -> doc_pipes[1]);
+	if ((cmd && cmd -> inited) && info -> pipes[0] > 0)
+		close(info -> pipes[0]);
+	if ((cmd && cmd -> inited) && info -> pipes[1] > 0)
+		close(info -> pipes[1]);
+	if (errno)
+		perror(NULL);
 	free_all(info, info -> status);
 }

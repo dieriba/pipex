@@ -29,6 +29,9 @@ clean:
 			rm -rf ./srcs/*.d
 			
 fclean:		clean
+			make -C ./libft fclean
+			make -C ./libft/ft_printf fclean
+			make -C ./libft/get_next_line fclean
 			rm -rf $(PIPEX) ./lib/*.a
 
 re:			fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:11:12 by dtoure            #+#    #+#             */
-/*   Updated: 2022/12/16 20:14:36 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 21:23:15 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct t_data
 	int		prev_pipes;
 	int		status;
 	char	*limiter;
-	int		doc_fd;
+	int		doc_pipes[2];
 	int		end_fd;
 }	t_data;
 
@@ -66,8 +66,7 @@ void	set_path_type(t_cmd **cmds);
 void	set_path(t_cmd **cmds);
 char	*find_path(char **envp);
 int		check_empty(int argc, char **argv);
-void	piping(t_data	*data, int pipes[2]);
-void	close_fd(t_data *data, int fd, char *str);
-char	*create_file(t_data *info);
-char	*start_here_doc(t_data *info);
+void	piping(t_data	*data);
+void	close_fd(t_data *data, int *fd, char *str);
+void	start_here_doc(t_data *info);
 #endif
