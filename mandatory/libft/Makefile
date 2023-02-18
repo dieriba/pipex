@@ -35,11 +35,13 @@ SRCS 		=	ft_atoi.c \
 				ft_putnbr_fd.c \
 				ft_putstr_fd.c \
 				ft_split.c \
+				ft_split_utils.c \
 				ft_strchr.c \
 				ft_strdup.c \
 				ft_striteri.c \
 				ft_strjoin.c \
 				ft_strlen.c \
+				ft_str_tab_len.c \
 				ft_strncmp.c \
 				ft_strnstr.c \
 				ft_strrchr.c \
@@ -48,26 +50,24 @@ SRCS 		=	ft_atoi.c \
 				ft_tolower.c \
 				ft_toupper.c \
 				ft_free_tab.c \
-				ft_tablen.c
-
-BONUS		=	ft_lstnew.c \
-				ft_lstadd_front.c \
-				ft_lstsize.c \
-				ft_lstlast.c \
-				ft_lstadd_back.c \
-				ft_lstdelone.c \
-				ft_lstclear.c \
-				ft_lstiter.c \
-				ft_lstmap.c \
+				ft_tablen.c \
+				ft_strcmp.c \
+				ft_check_empty.c \
+				ft_malloc_less_itoa.c \
+				ft_free_elem.c \
+				ft_char_index.c \
+				ft_numbered_str_only.c \
 
 OBJS		=	$(SRCS:.c=.o)
+
+DEPS		=	$(SRCS:.c.d)
 
 OBJS_BONUS	=	$(BONUS:.c=.o)
 
 INCLUDES	=	-I includes
 
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CC			=	cc
+CFLAGS		=	-g3 -Wall -Wextra -Werror
 
 .c.o :	
 			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -81,11 +81,13 @@ bonus:		$(OBJS) $(OBJS_BONUS)
 			ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
 clean:
-			rm -rf $(OBJS) $(OBJS_BONUS)
+			rm -rf $(OBJS) $(OBJS_BONUS) $(DEPS)
 
 fclean:		clean
 			rm -rf $(NAME)
 
 re:			fclean all
+
+-include : 	$(DEPS)
 
 .PHONY:		all clean fclean re

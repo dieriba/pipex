@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:13:26 by dtoure            #+#    #+#             */
-/*   Updated: 2023/02/18 19:25:53 by dtoure           ###   ########.fr       */
+/*   Created: 2022/11/25 20:29:38 by dtoure            #+#    #+#             */
+/*   Updated: 2023/02/11 21:15:12 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_free_tab(char **tab)
+int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
 
-	if (!tab)
-		return (NULL);
+	if (s1 == NULL || s2 == NULL)
+		return (STRCMP_NULL_END);
 	i = -1;
-	while (tab[++i])
-		ft_free_elem((void **)&tab[i]);
-	free(tab);
-	return (NULL);
+	while ((s1[++i] && s2[i]) && s1[i] == s2[i])
+		;
+	return (s1[i] - s2[i]);
 }

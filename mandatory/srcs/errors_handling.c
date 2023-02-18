@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:31:37 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/26 20:57:38 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 21:58:07 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_cmd(t_cmd **cmd)
 	while (cmd[++i])
 	{
 		if (cmd[i]-> cmd && cmd[i]-> no_path)
-			free(cmd[i]-> cmd);
+			ft_free_elem(cmd[i]-> cmd);
 		if (cmd[i]-> args)
 			ft_free_tab(cmd[i]-> args);
 		if (cmd[i]-> paths)

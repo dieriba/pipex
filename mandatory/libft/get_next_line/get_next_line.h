@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 18:15:17 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/11 18:15:17 by dtoure           ###   ########.fr       */
+/*   Created: 2022/11/09 19:39:40 by dtoure            #+#    #+#             */
+/*   Updated: 2022/11/09 19:39:40 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# define BUFFER_SIZE 4096
 
-static	size_t	ft_strlen_(const char *s)
-{
-	size_t	i;
-
-	i = -1;
-	while (s[++i])
-		;
-	return (i);
-}
-
-int	ft_putstr_fd(char *s, int fd)
-{
-	int	len;
-
-	if (s != NULL)
-	{
-		len = ft_strlen_(s);
-		write (fd, s, len);
-	}
-	else
-	{
-		write (fd, "(null)", 6);
-		len = 6;
-	}
-	return (len);
-}
+size_t	ft_strlens(const char *s);
+char	*ft_callocs(size_t nmemb, size_t size);
+char	*get_next_line(int fd, int last);
+char	*ft_strjoins(char *s1, char *s2, size_t len);
+#endif

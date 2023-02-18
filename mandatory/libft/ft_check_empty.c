@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_check_empty.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:13:26 by dtoure            #+#    #+#             */
-/*   Updated: 2023/02/18 19:25:53 by dtoure           ###   ########.fr       */
+/*   Created: 2022/11/27 17:41:16 by dtoure            #+#    #+#             */
+/*   Updated: 2022/11/27 17:41:21 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_free_tab(char **tab)
+int	check_empty(int argc, char **argv)
 {
-	size_t	i;
+	int	i;
 
-	if (!tab)
-		return (NULL);
-	i = -1;
-	while (tab[++i])
-		ft_free_elem((void **)&tab[i]);
-	free(tab);
-	return (NULL);
+	i = 0;
+	while (++i < argc)
+	{
+		if (!argv[i][0])
+			return (1);
+	}
+	return (0);
 }
