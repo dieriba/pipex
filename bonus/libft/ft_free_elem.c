@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_free_elem.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:13:26 by dtoure            #+#    #+#             */
-/*   Updated: 2023/02/18 19:25:53 by dtoure           ###   ########.fr       */
+/*   Created: 2023/01/24 02:53:08 by dtoure            #+#    #+#             */
+/*   Updated: 2023/01/27 04:42:20 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_free_tab(char **tab)
+void	ft_free_elem(void **elem)
 {
-	size_t	i;
-
-	if (!tab)
-		return (NULL);
-	i = -1;
-	while (tab[++i])
-		ft_free_elem((void **)&tab[i]);
-	free(tab);
-	return (NULL);
+	if ((*elem) == NULL)
+		return ;
+	free((*elem));
+	(*elem) = NULL;
 }

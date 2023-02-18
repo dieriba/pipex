@@ -18,6 +18,7 @@
 # include <stdarg.h>
 # define BASE_FORMAT "cspdiuxX%%"
 # define FLAGS "-0.# +"
+# define FD 1
 
 int		ft_putchar(char c);
 int		ft_putnbr_uns(unsigned int nbr, int *count);

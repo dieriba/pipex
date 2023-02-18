@@ -43,9 +43,9 @@ int	ft_print_hash(const char *format, va_list args_infos, size_t *i)
 		if (!format_num)
 			return (0);
 		if (str[tmp] && (str[tmp] == 'x'))
-			ft_putstr_fd("0x", 1);
+			ft_putstr_fd("0x", FD);
 		else if (str[tmp])
-			ft_putstr_fd("0X", 1);
+			ft_putstr_fd("0X", FD);
 		return (ft_getlen(format_num) + 2);
 	}
 	return (0);

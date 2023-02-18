@@ -40,7 +40,7 @@ int	ft_write_hex_adress(unsigned long int nbr, int *count)
 	}
 	val = 2;
 	len = get_len(nbr);
-	write(1, "0x", 2);
+	write(FD, "0x", 2);
 	while (len != 0)
 	{
 		c = base[(nbr / len)];

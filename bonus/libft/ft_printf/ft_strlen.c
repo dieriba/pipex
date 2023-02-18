@@ -11,13 +11,22 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "stdio.h"
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
+	int		space;
 
 	i = 0;
+	space = 1;
+	if (!s)
+		return (0);
 	while (s[i])
+	{
+		if (!ft_isspace(s[i]))
+			space = 0;
 		i++;
-	return (i);
+	}
+	return (i * (space == 0));
 }

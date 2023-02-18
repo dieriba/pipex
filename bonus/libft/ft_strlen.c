@@ -12,14 +12,27 @@
 
 #include "libft.h"
 
+static int	ft_isspaces(int c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
+	int		space;
 
+	i = 0;
+	space = 1;
 	if (!s)
 		return (0);
-	i = 0;
 	while (s[i])
+	{
+		if (!ft_isspaces(s[i]))
+			space = 0;
 		i++;
-	return (i);
+	}
+	return (i * (space == 0));
 }

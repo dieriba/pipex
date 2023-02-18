@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_numbered_str_only.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:13:26 by dtoure            #+#    #+#             */
-/*   Updated: 2023/02/18 19:25:53 by dtoure           ###   ########.fr       */
+/*   Created: 2023/01/30 15:13:51 by dtoure            #+#    #+#             */
+/*   Updated: 2023/02/06 21:42:12 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_free_tab(char **tab)
+int	ft_numbered_str_only(char *line)
 {
 	size_t	i;
 
-	if (!tab)
-		return (NULL);
 	i = -1;
-	while (tab[++i])
-		ft_free_elem((void **)&tab[i]);
-	free(tab);
-	return (NULL);
+	while (line[++i])
+	{
+		if (!ft_isdigit(line[i]))
+			return (1);
+	}
+	return (0);
 }

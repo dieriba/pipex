@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoure <dtoure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 20:29:38 by dtoure            #+#    #+#             */
-/*   Updated: 2022/11/25 20:30:24 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/11 21:15:12 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
 
+	if (s1 == NULL || s2 == NULL)
+		return (STRCMP_NULL_END);
 	i = -1;
 	while ((s1[++i] && s2[i]) && s1[i] == s2[i])
 		;

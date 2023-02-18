@@ -39,7 +39,7 @@ int	ft_display_format(const char *format, size_t *i, char c, va_list args_infos)
 	if (c == 'c')
 		count = ft_putchar((int)va_arg(args_infos, int));
 	else if (c == 's')
-		count = ft_putstr_fd((char *)va_arg(args_infos, char *), 1);
+		count = ft_putstr_fd((char *)va_arg(args_infos, char *), FD);
 	else if (c == 'p')
 		count = ft_write_hex_adress((unsigned long int)
 				va_arg(args_infos, unsigned long int), &count);

@@ -6,7 +6,7 @@
 /*   By: dtoure <dtoure@student42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:37:31 by dtoure            #+#    #+#             */
-/*   Updated: 2023/02/18 21:51:31 by dtoure           ###   ########.fr       */
+/*   Updated: 2023/02/18 22:01:14 by dtoure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	start_here_doc(t_data *info)
 		print_err_and_exit("Error", NULL, info, 0);
 	if (pid == 0)
 	{
-		info -> limiter = ft_strjoin(info -> limiter, "\n");
+		info -> limiter = ft_strjoin(info -> limiter, "\n", 0, 0);
 		if (!info -> limiter)
 			print_err_and_exit("Failled to allocate memory", NULL, info, 1);
 		create_here_doc(info);
